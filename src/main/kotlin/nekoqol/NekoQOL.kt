@@ -165,7 +165,7 @@ class NekoQOL {
     companion object {
         const val MOD_ID = "nekoqol"
         const val MOD_NAME = "NekoQOL"
-        const val MOD_VERSION = "0.1"
+        const val MOD_VERSION = "0.1.1"
         const val CHAT_PREFIX = "§8[§bNeko§7QOL§8]"
         val mc: Minecraft = Minecraft.getMinecraft()
         var config = Config

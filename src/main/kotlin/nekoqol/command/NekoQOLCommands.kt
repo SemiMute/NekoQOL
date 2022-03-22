@@ -62,6 +62,7 @@ class NekoQOLCommands : CommandBase() {
             UChat.chat("")
             UChat.chat("&7- &bAzael_Mew &7Helped get the project started in ChatTriggers!")
             UChat.chat("&7- &b0Kelvin_ &7Helped me learn Kotlin, the reason its now a Mod!")
+            UChat.chat("&7- &bDer_s &7Debugging is pain")
             UChat.chat("")
             UChat.chat("&b&m====================================================")
             return
