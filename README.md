@@ -1,3 +1,3 @@
-# Skyblock-Client
+# NekoQOL
 
-The best skyblock mod. Open settings with keybind or `/sbclient`.
+NYAA! The Catgirl QOL Skyblock Mod: Open settings via `/nekoqol`.
