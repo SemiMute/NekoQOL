@@ -13,7 +13,7 @@ import java.awt.Color
 import java.io.File
 import java.util.function.Consumer
 
-object NekoConfig : Vigilant(File("./config/NekoQOL/nekoconfig.toml"), "nekoqol", sortingBehavior = Sorting) {
+object NekoConfig : Vigilant(File("./config/NekoQOL/nekoconfig.toml"), "NekoQOL Config", sortingBehavior = Sorting) {
 
     @Property(
         type = PropertyType.SWITCH,

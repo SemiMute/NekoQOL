@@ -22,7 +22,7 @@ class AutoSell {
             modMessage("&cDEBUGGER: &7Detected full inventory!")
             //mc.thePlayer.sendChatMessage("/sbmenu")
             Timer().schedule(timerTask {
-                click(22, false, 750)
+                //click(22, false, 750)
                 UChat.chat("&cNEKOQOL DEBUGGER: &fClicked slot &b22&f in menu SBMENU")
             }, 750)
             //UChat.chat()

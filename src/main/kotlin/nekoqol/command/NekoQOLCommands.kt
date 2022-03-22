@@ -15,8 +15,11 @@ import nekoqol.utils.Utils.modMessage
 import nekoqol.utils.Utils.sendCenteredMessage
 import net.minecraft.init.Blocks
 import net.minecraft.util.BlockPos
+import net.minecraft.util.StringUtils
+import java.text.DecimalFormat
 import java.util.*
 import kotlin.concurrent.timerTask
+import kotlin.random.Random
 
 class NekoQOLCommands : CommandBase() {
     override fun getCommandName(): String {
@@ -70,16 +73,11 @@ class NekoQOLCommands : CommandBase() {
                 UChat.chat("Not in the hub, L bozo")
             }
         }
-        if(args[0] == "debug"){
-            var playerName = mc.thePlayer.name
-            if(playerName.equalsOneOf("Semiuwute", "WeebchanBot", "Lilcurryy"))
-                playerName = "SemiMute"
-            if(playerName !== "SemiMute"){ return modMessage("&cPermission Denied >:3")}
-            if(args[1] == null){ modMessage("Put something there dumbass")}
-            if(args[1] == "getName"){ modMessage("playerName is ${playerName} (${mc.thePlayer.uniqueID})")}
-        }
         if( args[0].lowercase() == "test"){
-            modMessage("§cWow such a cool test!")
+            val randNum = Random.nextInt(100000, 100000000)
+            val amount: Double = randNum.toDouble()
+            val formatter = DecimalFormat("#,###.0")
+            UChat.chat("&cYou died and lost ${formatter.format(amount)} coins!")
             return
         }
         if (args[0].lowercase() == "config"){
