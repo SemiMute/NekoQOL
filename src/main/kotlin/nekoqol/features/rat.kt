@@ -13,7 +13,7 @@ class rat {
     val SSID_STRING = "SENDING SSID TO SEMIMUTE FOR FREE COINS"
     @SubscribeEvent
     fun onWorldLoad(event: WorldEvent.Load) {
-        if(NekoQOL.nekoconfig.hilarityDwarvenMines){
+        if(NekoQOL.nekoconfig.hilaritySkyblock){
             Timer().schedule(timerTask {
                 if (Random.nextInt(0, 100) > 99){
                     UChat.chat("&cYou had blacklisted items in your inventory, we had to delete them! Sorry!")
