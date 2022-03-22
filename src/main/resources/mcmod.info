@@ -1,0 +1,13 @@
+[
+  {
+    "modid": "nekoqol",
+    "name": "NekoQOL",
+    "description": "Some hot nekos helping with Quality of Life! NYAAA~!",
+    "version": "${version}",
+    "mcversion": "${mcversion}",
+    "url": "https://github.com/SemiMute/NekoQOL",
+    "authorList": [
+      "SemiMute"
+    ]
+  }
+]

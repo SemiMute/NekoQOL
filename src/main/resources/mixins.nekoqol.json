@@ -1,0 +1,17 @@
+{
+  "minVersion": "0.6",
+  "compatibilityLevel": "JAVA_8",
+  "package": "nekoqol.mixins",
+  "refmap": "mixins.nekoqol.refmap.json",
+  "client": [
+    "MixinEntityRenderer",
+    "MixinGuiContainer",
+    "MixinInventoryEffectRenderer",
+    "MixinMinecraft",
+    "MixinModList",
+    "MixinNetworkManager",
+    "MixinPatcherEntityCulling",
+    "MixinPlayerHandler",
+    "MixinRendererLivingEntity"
+  ]
+}
