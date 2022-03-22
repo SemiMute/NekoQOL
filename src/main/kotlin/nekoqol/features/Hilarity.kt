@@ -64,7 +64,7 @@ class Hilarity {
     @SubscribeEvent
     fun renderWorld(event: RenderWorldLastEvent){
         if(NekoQOL.nekoconfig.hilarityForaging){
-            if(isForagingIsland() && foragingInsult !== true){
+            if(isForagingIsland() && !foragingInsult){
                 UChat.chat("&dFrom ${nameArray[Random.nextInt(nameArray.size)]} &7${foragingHilarityArray[Random.nextInt(
                     foragingHilarityArray.size)]}")
                 foragingInsult = true
