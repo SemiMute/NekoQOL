@@ -25,6 +25,14 @@ object NekoConfig : Vigilant(File("./config/NekoQOL/nekoconfig.toml"), "nekoqol"
 
     @Property(
         type = PropertyType.SWITCH,
+        name = "Skyblock Hilarity",
+        category = "Hilarity",
+        description = "Gives you small heart attacks in ALL of &bSkyblock&f!",
+    )
+    var hilaritySkyblock = true
+
+    @Property(
+        type = PropertyType.SWITCH,
         name = "Dwarven Hilarity",
         category = "Hilarity",
         description = "Does a little bit of tom foolery in the &bDwarven Mines",
@@ -60,7 +68,7 @@ object NekoConfig : Vigilant(File("./config/NekoQOL/nekoconfig.toml"), "nekoqol"
     init {
         setCategoryDescription(
             "Hilarity",
-            "Give yourself a heart attack!"
+            "Ever wanted to not be able to trust basic chat messages, get insulted when you fuck up, and more? Well, here's the perfect feature for you! Keep this enabled to get frequent heart attacks!\n\n&cNekoQOL is not liable for any computers that get smashed because of your rage!"
         )
     }
 
