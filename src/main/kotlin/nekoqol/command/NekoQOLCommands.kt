@@ -47,7 +47,7 @@ class NekoQOLCommands : CommandBase() {
             UChat.chat("&b&m====================================================")
             sendCenteredMessage("&b&lNeko&7&lQOL &7- &fMod Developed by &b&l§zSemiMute")
             UChat.chat("")
-            UChat.chat("&7- &b/nekoqol config &9- (( DISABLED FEATURE ))")
+            UChat.chat("&7- &b/nekoqol config &9- &7Configure your settings NYA~!")
             UChat.chat("&7- &b/nekoqol filter &9- &c(( DISABLED FEATURE ))")
             UChat.chat("&7- &b/nekoqol testwebhook &9- &c(( DISABLED FEATURE ))")
             UChat.chat("&7- &b/nekoqol credits&9 - &7Shows off some wonderful people!")

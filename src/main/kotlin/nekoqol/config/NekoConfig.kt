@@ -65,11 +65,46 @@ object NekoConfig : Vigilant(File("./config/NekoQOL/nekoconfig.toml"), "NekoQOL 
     )
     var sShapedMacroDirection = 0
 
+    // AUTO SELL
+
+    @Property(
+        type = PropertyType.SWITCH,
+        name = "Auto Sell Toggle",
+        category = "Macros",
+        subcategory = "Auto Sell",
+        description = "Should the Auto Sell macro activate?",
+    )
+    var autoSellToggle = false
+
+    @Property(
+        type = PropertyType.SELECTOR,
+        name = "Auto Sell Selector",
+        category = "Macros",
+        subcategory = "Auto Sell",
+        description = "What macro do you want active clearing up your inventory",
+        options = ["Bazaar"]
+    )
+    var autoSellChoice = 0
+
     init {
         setCategoryDescription(
             "Hilarity",
             "Ever wanted to not be able to trust basic chat messages, get insulted when you fuck up, and more? Well, here's the perfect feature for you! Keep this enabled to get frequent heart attacks!\n\n&cNekoQOL is not liable for any computers that get smashed because of your rage!"
         )
+        setCategoryDescription(
+            "Macros",
+            "Its called Quality of Life, not cheats... get it right!"
+        )
+        setSubcategoryDescription(
+            "Macros",
+            "Auto Sell",
+            "Automatically sell your sellables once your inventory is full!"
+        )
+        listOf(
+            "autoSellChoice"
+        ).forEach(Consumer { s: String ->
+            addDependency(s, "autoSellToggle")
+        })
     }
 
     fun init() {

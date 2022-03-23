@@ -59,7 +59,7 @@ class NekoQOL {
 
     @Mod.EventHandler
     fun onInit(event: FMLInitializationEvent) {
-        config.init()
+        nekoconfig.init()
 
         HttpClients.createMinimal().use {
             val httpGet = HttpGet("https://gist.githubusercontent.com/SemiMute/dfb8b04e889ddffdd47291061e362f46/raw/")
