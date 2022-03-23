@@ -55,6 +55,7 @@ object NekoConfig : Vigilant(File("./config/NekoQOL/nekoconfig.toml"), "NekoQOL 
     )
     var hilarityForaging = true
 
+    // FARM MACROING
     @Property(
         type = PropertyType.SELECTOR,
         name = "S Shaped Direction",
