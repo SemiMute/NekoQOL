@@ -12,7 +12,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 
 class SoundRegisterListener {
     @SubscribeEvent(priority = EventPriority.NORMAL, receiveCanceled = true)
-    fun registerSoundEvents(event: ????) {
-        event.getRegistry().registerAll(SoundRegistrator.SOUND_1, SoundRegistrator.SOUND_2)
+    fun registerSoundEvents(event: SoundEvent) {
+        //event.getRegistry().registerAll(SoundRegistrator.SOUND_1, SoundRegistrator.SOUND_2)
     }
 }

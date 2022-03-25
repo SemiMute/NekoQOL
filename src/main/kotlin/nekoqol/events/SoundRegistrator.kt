@@ -10,7 +10,7 @@ class SoundRegistratorListener {
         private fun addSoundsToRegistry(soundId: String): SoundEvent {
             val shotSoundLocation = ResourceLocation("nekoqol", soundId) as SoundManager
             val soundEvent = SoundEvent(shotSoundLocation)
-            soundEvent.registryName(shotSoundLocation)
+            //soundEvent.registryName(shotSoundLocation)
             return soundEvent
         }
 

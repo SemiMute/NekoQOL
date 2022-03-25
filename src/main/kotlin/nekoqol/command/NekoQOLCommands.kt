@@ -82,7 +82,6 @@ class NekoQOLCommands : CommandBase() {
             return
         }
         if (args[0].lowercase() == "config"){
-            mc.theWorld.playSound("")
             display = nekoconfig.gui()
         }
         if (args[0].lowercase() == "configLegacy"){
