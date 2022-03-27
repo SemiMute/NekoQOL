@@ -30,6 +30,7 @@ import kotlin.random.Random
 import kotlin.reflect.full.declaredFunctions
 
 class Hilarity {
+
     private val foragingLocations = listOf(
         "Birch",
         "Spruce",
@@ -65,9 +66,8 @@ class Hilarity {
                 }
                 val amount: Double = number.toDouble()
                 val formatter = DecimalFormat("#,###.#")
-                if(StringUtils.stripControlCodes(event.message.unformattedText).contains("You died and lost")){
+                if(StringUtils.stripControlCodes(event.message.unformattedText).contains("You died and lost") || StringUtils.stripControlCodes(event.message.unformattedText).contains("You died!")){
                     event.message = ChatComponentTranslation("§cYou died and lost ${formatter.format(amount)} coins!")
-
                 } else if(StringUtils.stripControlCodes(event.message.unformattedText).startsWith(" ☠ You")){
                     Timer().schedule(timerTask {
                         event.message = ChatComponentTranslation("§cYou died and lost ${formatter.format(amount)} coins!")
@@ -89,6 +89,7 @@ class Hilarity {
                 UChat.chat("&dFrom ${nameArray[Random.nextInt(nameArray.size)]} &7${foragingHilarityArray[Random.nextInt(
                     foragingHilarityArray.size)]}")
                 foragingInsult = true
+
             }
         }
     }

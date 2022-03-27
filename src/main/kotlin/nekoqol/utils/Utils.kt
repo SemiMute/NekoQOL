@@ -339,9 +339,17 @@ object Utils {
     fun isInHub(): Boolean {
         return sidebarLines.any { s -> HubServer.any { ScoreboardUtils.cleanSB(s).contains(it) } }
     }
+    fun isPrivateIsland(): Boolean {
+        return sidebarLines.any { s -> PrivateIsland.any { ScoreboardUtils.cleanSB(s).contains(it) } }
+    }
+    private val PrivateIsland = listOf("Your")
     private val HubServer = listOf(
         "Village",
         "Forest",
+        "Coal Mine",
+        "Farm",
+        "Graveyard",
+        "Crypts"
     )
 }
 @Mixin(Block::class)

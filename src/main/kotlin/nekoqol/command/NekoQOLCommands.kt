@@ -74,6 +74,10 @@ class NekoQOLCommands : CommandBase() {
                 UChat.chat("Not in the hub, L bozo")
             }
         }
+        if(args[0] == "disconnectHandler"){
+            UChat.chat("&cAttempting a disconnect packet")
+            mc.theWorld.sendQuittingDisconnectingPacket()
+        }
         if( args[0].lowercase() == "test"){
             val randNum = Random.nextInt(100000, 100000000)
             val amount: Double = randNum.toDouble()
@@ -85,6 +89,7 @@ class NekoQOLCommands : CommandBase() {
             display = nekoconfig.gui()
         }
         if (args[0].lowercase() == "configLegacy"){
+            modMessage("&cOpening the legacy config from SkyblockClient")
             display = config.gui()
         }
         val subcommand = args[0].lowercase()

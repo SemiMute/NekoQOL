@@ -5,11 +5,7 @@ import gg.essential.vigilance.data.Category
 import gg.essential.vigilance.data.Property
 import gg.essential.vigilance.data.PropertyType
 import gg.essential.vigilance.data.SortingBehavior
-import nekoqol.NekoQOL.Companion.display
-import nekoqol.guis.BlockAnimationBlacklist
-import nekoqol.guis.HideModID
-import nekoqol.guis.ItemMacros
-import java.awt.Color
+
 import java.io.File
 import java.util.function.Consumer
 
