@@ -50,7 +50,7 @@ object NekoConfig : Vigilant(File("./config/NekoQOL/nekoconfig.toml"), "NekoQOL 
         category = "Macros",
         subcategory = "Auto Sell",
         description = "What macro do you want active clearing up your inventory",
-        options = ["Bazaar"]
+        options = ["Bazaar", "Trade Menu"]
     )
     var autoSellChoice = 0
 
@@ -141,7 +141,7 @@ object NekoConfig : Vigilant(File("./config/NekoQOL/nekoconfig.toml"), "NekoQOL 
         )
         setCategoryDescription(
             "Macros",
-            "Its called Quality of Life, not cheats... get it right!"
+            "It's called &bQuality of Life&f... not cheats! Get it right...\n&7We don't cheat... wtf!"
         )
         setSubcategoryDescription(
             "Macros",

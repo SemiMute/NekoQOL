@@ -1,0 +1,10 @@
+{
+  "nyaa": {
+    "category" : "player",
+    "sounds": [{
+      "name": "nekoqol:nyaa",
+      "stream": true
+    }
+    ]
+  }
+}

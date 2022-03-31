@@ -63,6 +63,13 @@ class SShapedMacro {
                 failSafeActive = true
                 //KeyBinding.setKeyBindState(mc.gameSettings.keyBindForward.keyCode, true)
                 modMessage("&bS Shaped Macro &fhas been toggled &a&lON&f!")
+                if(NekoQOL.nekoconfig.discordURL == "" && NekoQOL.nekoconfig.discordPost){
+                    modMessage("&cERROR: It seems you are wanting to get discord notifications, but dont have a Webhook setup! Please correct this and try again...")
+                    isActive = false
+                    failSafeActive = false
+                    modMessage("&bS Shaped Macro&f has been force toggled &c&lOFF&f due to an &cERROR&f occurring")
+                    return
+                }
                 if(mc.thePlayer.rotationPitch !== NekoQOL.nekoconfig.sShapedPitch || mc.thePlayer.rotationYaw !== NekoQOL.nekoconfig.sShapedYaw){
                     isActive = false
                     Timer().schedule(timerTask {

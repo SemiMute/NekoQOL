@@ -27,7 +27,8 @@ class NekoQOLCommands : CommandBase() {
         return listOf(
             "nekoqol",
             "nqol",
-            "nyaa"
+            "nyaa",
+            "nq"
         )
     }
 
@@ -41,6 +42,7 @@ class NekoQOLCommands : CommandBase() {
 
     override fun processCommand(sender: ICommandSender, args: Array<String>) {
         if (args.isEmpty()) {
+            mc.thePlayer.playSound("nekoqol:nyaa", 10f, 1f)
             UChat.chat("&b&m====================================================")
             sendCenteredMessage("&b&lNeko&7&lQOL &7- &fMod Developed by &b&l§zSemiMute")
             UChat.chat("")
@@ -53,6 +55,7 @@ class NekoQOLCommands : CommandBase() {
             return
         }
         if(args[0] == "credits") {
+            mc.thePlayer.playSound("nekoqol:nyaa", 10f, 1f)
             UChat.chat("&b&m====================================================")
             sendCenteredMessage("&b&lNekoQOL &7- &fCredits")
             UChat.chat("&7Some special thanks to those who've helped!")
@@ -72,11 +75,21 @@ class NekoQOLCommands : CommandBase() {
             }
         }
         if(args[0] == "testWebhook"){
-            modMessage("Attempting to send a &3Discord Webhook&r message..")
+            if(nekoconfig.discordURL == ""){
+                modMessage("&cERROR: &fGive me a Discord Webhook via &b/nekoqol config")
+                return
+            }
+            mc.thePlayer.playSound("nekoqol:nyaa", 10f, 1f)
+            modMessage("&fAttempting to send a &3Discord Webhook&r message..")
             DiscordWebhook(nekoconfig.discordURL).setContent("**NYAA!** This is a test message to make sure your webhook URL is set correctly!").execute()
         }
         if(args[0] == "testWebhookPing"){
-            modMessage("Attempting to send a &3Discord Webhook&f message while pinging..")
+            if(nekoconfig.discordURL == ""){
+                modMessage("&cERROR: &fGive me a Discord Webhook via &b/nekoqol config")
+                return
+            }
+            mc.thePlayer.playSound("nekoqol:nyaa", 10f, 1f)
+            modMessage("&fAttempting to send a &3Discord Webhook&f message while pinging..")
             DiscordWebhook(nekoconfig.discordURL).setContent("<@${NekoQOL.nekoconfig.discordID}> **NYAA!** This is a test message to make sure your webhook URL with a ping is setup!").execute()
         }
         if(args[0] == "disconnectHandler"){
@@ -84,6 +97,7 @@ class NekoQOLCommands : CommandBase() {
             mc.theWorld.sendQuittingDisconnectingPacket()
         }
         if( args[0].lowercase() == "test"){
+            mc.thePlayer.playSound("nekoqol:nyaa", 10f, 1f)
             val randNum = Random.nextInt(100000, 100000000)
             val amount: Double = randNum.toDouble()
             val formatter = DecimalFormat("#,###.0")
@@ -91,6 +105,7 @@ class NekoQOLCommands : CommandBase() {
             return
         }
         if (args[0].lowercase() == "config"){
+            mc.thePlayer.playSound("nekoqol:nyaa", 10f, 1f)
             display = nekoconfig.gui()
         }
         if (args[0].lowercase() == "configLegacy"){

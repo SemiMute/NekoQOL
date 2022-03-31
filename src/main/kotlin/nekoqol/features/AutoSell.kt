@@ -4,9 +4,11 @@ import gg.essential.universal.UChat.chat
 import nekoqol.NekoQOL
 import nekoqol.NekoQOL.Companion.inSkyblock
 import nekoqol.NekoQOL.Companion.mc
+import nekoqol.utils.Utils.itemID
 import nekoqol.utils.Utils.modMessage
 import net.minecraft.client.Minecraft
 import net.minecraft.client.settings.KeyBinding
+import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.util.StringUtils
 import net.minecraftforge.client.event.ClientChatReceivedEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
@@ -40,6 +42,31 @@ class AutoSell {
                         click(15, false, 600)
                         chat("&cNEKOQOL DEBUGGER: &fAttempting to close Bazaar Menu")
                     }, 2800)
+                }
+            }
+            if(NekoQOL.nekoconfig.autoSellChoice == 1){
+                if (StringUtils.stripControlCodes(event.message.unformattedText).startsWith("Your inventory is full!")) {
+                    val fishItems = listOf(
+                        "Dirt"
+                    )
+                    var i: Long = 1800
+                    mc.thePlayer.sendChatMessage("/sbmenu")
+                    Timer().schedule(timerTask {
+                        click(22, false, 600)
+                        chat("&cNEKOQOL DEBUGGER: &fClicked Trading Menu")
+                        Timer().schedule(timerTask {
+                            mc.thePlayer.inventory.mainInventory.forEachIndexed{ index, itemStack ->
+                                modMessage("&cITEM THINGY ${itemStack.itemID}")
+                                if(itemStack.itemID !== null){
+                                    if(fishItems.contains(StringUtils.stripControlCodes(itemStack.displayName))){
+                                        i += 600
+                                        click(54 + -(index - (36 - index)), false, i)
+                                        modMessage("&cDEBUGGER: &fClicked slot &f\"${index}\" to sell item")
+                                    }
+                                }
+                            }
+                        }, 2000)
+                    }, 600)
                 }
             }
         }
