@@ -321,6 +321,15 @@ object Utils {
 //            )
 //        } //#endif
     }
+    fun getDiscordPing(message: String): String? {
+        var newMsg: String
+        return if(NekoQOL.nekoconfig.discordPing){
+            newMsg = "<@${NekoQOL.nekoconfig.discordID}> " + message
+            newMsg
+        } else {
+            message
+        }
+    }
     @SubscribeEvent
     fun onWorldLoad(event: WorldEvent.Load){
         event.world.getChunkFromBlockCoords(mc.thePlayer.position).blockStorageArray.forEach {
@@ -331,9 +340,13 @@ object Utils {
         }
     }
     fun isInLimbo(): Boolean {
+        if(mc.theWorld == null) return false
         return mc.theWorld.getBlockState(BlockPos(-21, 32, 21)).block == Blocks.wall_sign && mc.theWorld.getBlockState(BlockPos(-22, 31, 21)).block == Blocks.carpet && mc.theWorld.getBlockState(BlockPos(-25, 31, 21)).block == Blocks.spruce_stairs
     }
     fun isInLobby(): Boolean {
+        if(mc.thePlayer.inventory.getStackInSlot(4) == null || mc.thePlayer.inventory.getStackInSlot(0) == null){
+            return false
+        }
         return mc.thePlayer.inventory.getStackInSlot(4).displayName.contains("Collectibles") && mc.thePlayer.inventory.getStackInSlot(0).displayName.contains("Game Menu")
     }
     fun isInHub(): Boolean {

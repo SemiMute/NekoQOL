@@ -34,21 +34,17 @@ import kotlin.random.Random
 class SShapedMacro {
     private var thread: Thread? = null
     private var lastUpdate: Long = 0
-    private val LobbyServers = listOf(
-        "ptl",
-        "Lobby:"
-    )
-    private val HubServer = listOf(
-        "Village",
-        "Forest",
-    )
+    private var sShapedThread: Thread? = null
+    private var sLastUpdate: Long = 0
 
-    val areaRegex = Regex("⏣ §r§b§l(?<area>[\\w]+): §r§7(?<loc>[\\w ]+)§r")
-    private val privateIsland = "Private";
     var isActive = false
     var failSafeActive = false;
     var autoReconnect = false
     var shouldLeftClick = false
+
+    fun startMacro() {
+
+    }
 
     @SubscribeEvent
     fun onKeyPress(event: InputEvent.KeyInputEvent) {
@@ -67,7 +63,17 @@ class SShapedMacro {
                 failSafeActive = true
                 //KeyBinding.setKeyBindState(mc.gameSettings.keyBindForward.keyCode, true)
                 modMessage("&bS Shaped Macro &fhas been toggled &a&lON&f!")
-
+                if(mc.thePlayer.rotationPitch !== NekoQOL.nekoconfig.sShapedPitch || mc.thePlayer.rotationYaw !== NekoQOL.nekoconfig.sShapedYaw){
+                    isActive = false
+                    Timer().schedule(timerTask {
+                        modMessage("&bS Shaped Macro&f has been force toggled &c&lOFF&f!")
+                        modMessage("&cFAILSAFE: &fDetected Pitch & Yaw at incorrect values. Correcting...")
+                        mc.thePlayer.rotationPitch = NekoQOL.nekoconfig.sShapedPitch
+                        mc.thePlayer.rotationYaw = NekoQOL.nekoconfig.sShapedYaw
+                        modMessage("&bS Shaped Macro&f has been force toggled &a&lON&f!")
+                        isActive = true
+                    }, 200)
+                }
                 //KeyBinding.setKeyBindState(mc.gameSettings.keyBindAttack.keyCode, true)
             }
         }
@@ -78,15 +84,20 @@ class SShapedMacro {
         onWorldCooldown = System.currentTimeMillis()
     }
     @SubscribeEvent
-    fun onTick(event: TickEvent.WorldTickEvent) {
-        if (event.phase != TickEvent.Phase.START || isPrivateIsland() && onWorldCooldown + 1500 <= System.currentTimeMillis()) return
+    fun onTick(event: TickEvent.ClientTickEvent) {
+        if (event.phase != TickEvent.Phase.START || failSafeActive && isPrivateIsland() && onWorldCooldown + 1500 <= System.currentTimeMillis()) return
         if (thread?.isAlive == true || lastUpdate + 2500 > System.currentTimeMillis()) return
         thread = Thread({
-            if(isInLobby()){
-                modMessage("&cFAILSAFE &c✧ &fPlayer is in &7⏣ &6Hypixel Lobby&f...\n&7Attempting to correct players' position...")
-            }
-            if(isInHub()){
-                modMessage("&cFAILSAFE &c✧ &fPlayer is in the &7⏣ &bSkyblock Village&f..\n&7Attempting to correct players' position...")
+            if(failSafeActive){
+                if(isInLobby()){
+                    modMessage("&cFAILSAFE &c✧ &fPlayer is in &7⏣ &6Hypixel Lobby&f...\n&7Attempting to correct players' position...")
+                }
+                if(isInHub()){
+                    modMessage("&cFAILSAFE &c✧ &fPlayer is in the &7⏣ &bSkyblock Village&f..\n&7Attempting to correct players' position...")
+                }
+                if(isInLimbo()){
+                    modMessage("&cFAILSAFE &c✧ &fPlayer is in the &7⏣ &cLimbo&f..\n&7Attempting to correct players' position...")
+                }
             }
             lastUpdate = System.currentTimeMillis()
         }, "S Shaped Failsafe")
@@ -97,10 +108,10 @@ class SShapedMacro {
     fun onWorldLoad(event: WorldEvent.Load){
         Timer().schedule(timerTask {
             var world = event.world
+
             if(world !== mc.theWorld){
                 return@timerTask
             }
-            failSafeActive = true
             if(failSafeActive){
                 if(isInLimbo()){
                     UChat.chat("Your dumbass is in limbo. nice going mf")

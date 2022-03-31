@@ -1,11 +1,11 @@
 package nekoqol
-
 import com.google.gson.JsonElement
 import com.google.gson.JsonParser
 import com.google.gson.JsonPrimitive
 import gg.essential.api.EssentialAPI
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import nekoqol.NekoQOL.Companion.tickCount
 import nekoqol.command.NekoQOLCommands
 import nekoqol.config.Config
 import nekoqol.config.ConfigManager.loadConfig
@@ -15,7 +15,10 @@ import nekoqol.config.NekoConfig
 import nekoqol.features.*
 import nekoqol.features.dungeons.*
 import nekoqol.features.qol.SShapedMacro
+import nekoqol.utils.DiscordWebhook
+import nekoqol.utils.EmbedObject
 import nekoqol.utils.ScoreboardUtils
+import nekoqol.utils.Utils.getDiscordPing
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.GuiScreen
 import net.minecraft.client.settings.KeyBinding
@@ -189,12 +192,5 @@ class NekoQOL {
     }
 }
 fun main() {
-    HttpClients.createMinimal().use {
-        val httpGet = HttpGet("https://gist.githubusercontent.com/SemiMute/dfb8b04e889ddffdd47291061e362f46/raw/")
-        val response = EntityUtils.toString(it.execute(httpGet).entity)
-        //val version = JsonParser().parse(response).asJsonObject["PUZZLE_FAIL_HILARITY"].asJsonArray.map { jsonElement ->  jsonElement.asString }
-
-        //println(version)
-    }
+    DiscordWebhook(NekoQOL.nekoconfig.discordURL).setContent(getDiscordPing("Testing Message")).execute()
 }
-

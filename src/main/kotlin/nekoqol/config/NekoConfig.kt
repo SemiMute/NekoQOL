@@ -11,6 +11,89 @@ import java.util.function.Consumer
 
 object NekoConfig : Vigilant(File("./config/NekoQOL/nekoconfig.toml"), "NekoQOL Config", sortingBehavior = Sorting) {
 
+    // FARM MACROING
+    @Property(
+        type = PropertyType.DECIMAL_SLIDER,
+        name = "S Shaped Direction Yaw",
+        description = "Forces your YAW to the number below whilst active",
+        category = "Macros",
+        subcategory = "S Shaped",
+        minF = -180F,
+        maxF = 180F
+    )
+    var sShapedYaw = 90F
+
+    @Property(
+        type = PropertyType.DECIMAL_SLIDER,
+        name = "S Shaped Direction Pitch",
+        description = "Forces your PITCH to the number below whilst active",
+        category = "Macros",
+        subcategory = "S Shaped",
+        maxF = 90F
+    )
+    var sShapedPitch = 0F
+
+    // AUTO SELL
+
+    @Property(
+        type = PropertyType.SWITCH,
+        name = "Auto Sell Toggle",
+        category = "Macros",
+        subcategory = "Auto Sell",
+        description = "Should the Auto Sell macro activate?",
+    )
+    var autoSellToggle = false
+
+    @Property(
+        type = PropertyType.SELECTOR,
+        name = "Auto Sell Selector",
+        category = "Macros",
+        subcategory = "Auto Sell",
+        description = "What macro do you want active clearing up your inventory",
+        options = ["Bazaar"]
+    )
+    var autoSellChoice = 0
+
+    //
+    // HILARITY
+    //
+
+    @Property(
+        type = PropertyType.SWITCH,
+        name = "Allow Discord Webhook",
+        category = "Webhook",
+        description = "Should you get notified in discord when failsafes activate?",
+    )
+    var discordPost = false
+
+    @Property(
+        type = PropertyType.SWITCH,
+        name = "Allow Discord Ping",
+        category = "Webhook",
+        description = "Should you get pinged in discord when failsafes activate?",
+    )
+    var discordPing = false
+
+    @Property(
+        type = PropertyType.TEXT,
+        name = "Discord ID",
+        description = "Paste your discord ID to get pinged when failsafes activate.",
+        category = "Webhook",
+    )
+    var discordID = ""
+
+    @Property(
+        type = PropertyType.TEXT,
+        name = "Discord Webhook URL",
+        description = "Paste your Discord Webhook URL here",
+        category = "Webhook",
+    )
+    var discordURL = ""
+
+    //
+    // HILARITY
+    //
+
     @Property(
         type = PropertyType.SWITCH,
         name = "Hilarity Master",
@@ -51,38 +134,6 @@ object NekoConfig : Vigilant(File("./config/NekoQOL/nekoconfig.toml"), "NekoQOL 
     )
     var hilarityForaging = true
 
-    // FARM MACROING
-    @Property(
-        type = PropertyType.SELECTOR,
-        name = "S Shaped Direction",
-        category = "Macros",
-        subcategory = "S Shaped",
-        description = "What direction should the S Shaped Macro be looking in while on?\n&cWARNING: This setting is static at the moment and will not work!",
-        options = ["North", "South", "East", "West"]
-    )
-    var sShapedMacroDirection = 0
-
-    // AUTO SELL
-
-    @Property(
-        type = PropertyType.SWITCH,
-        name = "Auto Sell Toggle",
-        category = "Macros",
-        subcategory = "Auto Sell",
-        description = "Should the Auto Sell macro activate?",
-    )
-    var autoSellToggle = false
-
-    @Property(
-        type = PropertyType.SELECTOR,
-        name = "Auto Sell Selector",
-        category = "Macros",
-        subcategory = "Auto Sell",
-        description = "What macro do you want active clearing up your inventory",
-        options = ["Bazaar"]
-    )
-    var autoSellChoice = 0
-
     init {
         setCategoryDescription(
             "Hilarity",
@@ -115,6 +166,6 @@ object NekoConfig : Vigilant(File("./config/NekoQOL/nekoconfig.toml"), "NekoQOL 
     }
 
     private val configCategories = listOf(
-        "Macros", "Hilarity"
+        "Macros", "Webhook", "Hilarity"
     )
 }

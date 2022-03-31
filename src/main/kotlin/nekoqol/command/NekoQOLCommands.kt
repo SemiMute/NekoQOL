@@ -9,13 +9,10 @@ import nekoqol.NekoQOL.Companion.display
 import nekoqol.NekoQOL.Companion.mc
 import nekoqol.NekoQOL.Companion.nekoconfig
 import nekoqol.config.Config.mimicMessage
-import nekoqol.utils.Utils.equalsOneOf
+import nekoqol.utils.DiscordWebhook
 import nekoqol.utils.Utils.isInHub
 import nekoqol.utils.Utils.modMessage
 import nekoqol.utils.Utils.sendCenteredMessage
-import net.minecraft.init.Blocks
-import net.minecraft.util.BlockPos
-import net.minecraft.util.StringUtils
 import java.text.DecimalFormat
 import java.util.*
 import kotlin.concurrent.timerTask
@@ -49,7 +46,7 @@ class NekoQOLCommands : CommandBase() {
             UChat.chat("")
             UChat.chat("&7- &b/nekoqol config &9- &7Configure your settings NYA~!")
             UChat.chat("&7- &b/nekoqol filter &9- &c(( DISABLED FEATURE ))")
-            UChat.chat("&7- &b/nekoqol testwebhook &9- &c(( DISABLED FEATURE ))")
+            UChat.chat("&7- &b/nekoqol testWebhook &9- &7Sends a test webhook message!")
             UChat.chat("&7- &b/nekoqol credits&9 - &7Shows off some wonderful people!")
             UChat.chat("")
             UChat.chat("&b&m====================================================")
@@ -73,6 +70,14 @@ class NekoQOLCommands : CommandBase() {
             } else {
                 UChat.chat("Not in the hub, L bozo")
             }
+        }
+        if(args[0] == "testWebhook"){
+            modMessage("Attempting to send a &3Discord Webhook&r message..")
+            DiscordWebhook(nekoconfig.discordURL).setContent("**NYAA!** This is a test message to make sure your webhook URL is set correctly!").execute()
+        }
+        if(args[0] == "testWebhookPing"){
+            modMessage("Attempting to send a &3Discord Webhook&f message while pinging..")
+            DiscordWebhook(nekoconfig.discordURL).setContent("<@${NekoQOL.nekoconfig.discordID}> **NYAA!** This is a test message to make sure your webhook URL with a ping is setup!").execute()
         }
         if(args[0] == "disconnectHandler"){
             UChat.chat("&cAttempting a disconnect packet")
