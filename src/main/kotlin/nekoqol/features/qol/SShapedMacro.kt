@@ -89,7 +89,7 @@ class SShapedMacro {
 
         when(dir) {
             EnumFacing.WEST -> {
-                if (mc.theWorld.getBlockState(pos.immutable.south(1).add(-0.5,0.0,-0.5)).block != Blocks.air) {
+                if (mc.theWorld.getBlockState(pos.immutable.add(-0.5,0.0,-0.5).south(1)).block != Blocks.air) {
                     //left
                     timer(1000) {
                         KeyBinding.setKeyBindState(mc.gameSettings.keyBindRight.keyCode, true)
