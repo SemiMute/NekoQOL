@@ -34,6 +34,7 @@ class SShapedMacro {
     fun startMacro() {
         KeyBinding.setKeyBindState(mc.gameSettings.keyBindAttack.keyCode, true)
         isActive = true
+        checkBlocks()
     }
 
     @SubscribeEvent
