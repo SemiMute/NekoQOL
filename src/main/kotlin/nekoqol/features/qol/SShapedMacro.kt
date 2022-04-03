@@ -10,6 +10,8 @@ import nekoqol.utils.Utils.isInLimbo
 import nekoqol.utils.Utils.isInLobby
 import nekoqol.utils.Utils.isPrivateIsland
 import nekoqol.utils.Utils.modMessage
+import net.minecraft.client.Minecraft
+import net.minecraft.client.gui.inventory.GuiInventory
 import net.minecraft.client.settings.KeyBinding
 import net.minecraft.init.Blocks
 import net.minecraft.util.BlockPos
@@ -17,11 +19,8 @@ import net.minecraft.util.EnumFacing
 import net.minecraftforge.event.world.WorldEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.common.gameevent.InputEvent.KeyInputEvent
-import net.minecraftforge.fml.common.gameevent.PlayerEvent
 import net.minecraftforge.fml.common.gameevent.TickEvent
-import net.minecraftforge.fml.common.gameevent.TickEvent.WorldTickEvent
 import java.util.*
-import kotlin.concurrent.timer
 import kotlin.concurrent.timerTask
 
 var isActive = false
@@ -36,6 +35,7 @@ class SShapedMacro {
     fun startMacro() {
         KeyBinding.setKeyBindState(mc.gameSettings.keyBindAttack.keyCode, true)
         isActive = true
+        failSafeActive = true
         checkBlocks()
     }
 
@@ -86,6 +86,15 @@ class SShapedMacro {
     fun checkBlocks() {
         var dir = mc.thePlayer.horizontalFacing
         var pos = BlockPos(mc.thePlayer.position.x , mc.thePlayer.position.y , mc.thePlayer.position.z )
+        if(Minecraft.getMinecraft().currentScreen is GuiInventory && isActive && failSafeActive){
+            isActive = false
+            failSafeActive = false
+            KeyBinding.setKeyBindState(mc.gameSettings.keyBindForward.keyCode, false)
+            KeyBinding.setKeyBindState(mc.gameSettings.keyBindLeft.keyCode, false)
+            KeyBinding.setKeyBindState(mc.gameSettings.keyBindRight.keyCode, false)
+            KeyBinding.setKeyBindState(mc.gameSettings.keyBindAttack.keyCode, false)
+            modMessage("&bS Shaped Macro&f has been toggled &c&lOFF&f due to a GUI being opened")
+        }
 
         when(dir) {
             EnumFacing.NORTH -> {
@@ -105,6 +114,7 @@ class SShapedMacro {
                         KeyBinding.setKeyBindState(mc.gameSettings.keyBindLeft.keyCode, false)
                         KeyBinding.setKeyBindState(mc.gameSettings.keyBindRight.keyCode, true)
                     }
+                    // goes left if no direction
                 }
             }
 
@@ -115,41 +125,44 @@ class SShapedMacro {
                     //left
                     timer(1000) {
                         if( !isActive ) return@timer
-                        KeyBinding.setKeyBindState(mc.gameSettings.keyBindRight.keyCode, true)
                         KeyBinding.setKeyBindState(mc.gameSettings.keyBindLeft.keyCode, false)
+                        KeyBinding.setKeyBindState(mc.gameSettings.keyBindRight.keyCode, true)
                     }
                 } else if (block != Blocks.air) {
                     //right
                     timer(1000) {
                         if( !isActive ) return@timer
-                        KeyBinding.setKeyBindState(mc.gameSettings.keyBindLeft.keyCode, true)
                         KeyBinding.setKeyBindState(mc.gameSettings.keyBindRight.keyCode, false)
+                        KeyBinding.setKeyBindState(mc.gameSettings.keyBindLeft.keyCode, true)
                     }
+                    // goes left if no direction
                 }
+
             }
 
             EnumFacing.WEST -> {
-                var block1 = mc.theWorld.getBlockState(pos.immutable.add(0.0, 0.0, 0.0).west(1)).block
+                var block1 = mc.theWorld.getBlockState(pos.immutable.add(0.0, 0.0, 0.0).south(1)).block
                 var block = mc.theWorld.getBlockState(pos.immutable.add(0.0, 0.0, 0.0).north(1)).block
                 if (block1 != Blocks.air) {
                     //left
                     timer(1000) {
                         if( !isActive ) return@timer
-                        KeyBinding.setKeyBindState(mc.gameSettings.keyBindRight.keyCode, true)
                         KeyBinding.setKeyBindState(mc.gameSettings.keyBindLeft.keyCode, false)
+                        KeyBinding.setKeyBindState(mc.gameSettings.keyBindRight.keyCode, true)
                     }
                 } else if (block != Blocks.air) {
                     //right
                     timer(1000) {
                         if( !isActive ) return@timer
-                        KeyBinding.setKeyBindState(mc.gameSettings.keyBindLeft.keyCode, true)
                         KeyBinding.setKeyBindState(mc.gameSettings.keyBindRight.keyCode, false)
+                        KeyBinding.setKeyBindState(mc.gameSettings.keyBindLeft.keyCode, true)
                     }
+                    // goes left if no direction
                 }
             }
 
             EnumFacing.EAST -> {
-                var block1 = mc.theWorld.getBlockState(pos.immutable.add(0.0, 0.0, 0.0).west(1)).block
+                var block1 = mc.theWorld.getBlockState(pos.immutable.add(0.0, 0.0, 0.0).south(1)).block
                 var block = mc.theWorld.getBlockState(pos.immutable.add(0.0, 0.0, 0.0).north(1)).block
                 if (block1 != Blocks.air) {
                     //left
@@ -165,6 +178,7 @@ class SShapedMacro {
                         KeyBinding.setKeyBindState(mc.gameSettings.keyBindLeft.keyCode, false)
                         KeyBinding.setKeyBindState(mc.gameSettings.keyBindRight.keyCode, true)
                     }
+                    // goes left if no direction
                 }
             }
         }
