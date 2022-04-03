@@ -20,6 +20,7 @@ import net.minecraftforge.fml.common.gameevent.PlayerEvent
 import net.minecraftforge.fml.common.gameevent.TickEvent
 import net.minecraftforge.fml.common.gameevent.TickEvent.WorldTickEvent
 import java.util.*
+import kotlin.concurrent.timer
 import kotlin.concurrent.timerTask
 
 var isActive = false
@@ -83,67 +84,15 @@ class SShapedMacro {
         val pos = mc.thePlayer.position
 
         when(dir) {
-            EnumFacing.NORTH -> {
-                var pos2 = pos.add(-1, 0, 0)
+            EnumFacing.WEST -> {
 
-                if(mc.theWorld.getBlockState(pos2).block != Blocks.air){
+                if (mc.theWorld.getBlockState(pos.south(1)).block != Blocks.air) {
                     //left
                     timer(1000) {
                         KeyBinding.setKeyBindState(mc.gameSettings.keyBindRight.keyCode, true)
                         KeyBinding.setKeyBindState(mc.gameSettings.keyBindLeft.keyCode, false)
                     }
-                } else if(mc.theWorld.getBlockState(pos2.add(2,0,0)).block.isCollidable) {
-                    //right
-                    timer(1000) {
-                        KeyBinding.setKeyBindState(mc.gameSettings.keyBindLeft.keyCode, true)
-                        KeyBinding.setKeyBindState(mc.gameSettings.keyBindRight.keyCode, false)
-                    }
-                }
-            }
-            EnumFacing.SOUTH -> {
-                var pos2 = pos.add(1, 0, 0)
-
-                if(mc.theWorld.getBlockState(pos2).block != Blocks.air){
-                    //left
-                    timer(1000) {
-                        KeyBinding.setKeyBindState(mc.gameSettings.keyBindRight.keyCode, true)
-                        KeyBinding.setKeyBindState(mc.gameSettings.keyBindLeft.keyCode, false)
-                    }
-                } else if(mc.theWorld.getBlockState(pos2.add(-2,0,0)) != Blocks.air) {
-                    //right
-                    timer(1000) {
-                        KeyBinding.setKeyBindState(mc.gameSettings.keyBindLeft.keyCode, true)
-                        KeyBinding.setKeyBindState(mc.gameSettings.keyBindRight.keyCode, false)
-                    }
-                }
-            }
-            EnumFacing.EAST ->  {
-                var pos2 = pos.add(0, 0, -1)
-
-                if(mc.theWorld.getBlockState(pos2).block != Blocks.air){
-                    //left
-                    timer(1000) {
-                        KeyBinding.setKeyBindState(mc.gameSettings.keyBindRight.keyCode, true)
-                        KeyBinding.setKeyBindState(mc.gameSettings.keyBindLeft.keyCode, false)
-                    }
-                } else if(mc.theWorld.getBlockState(pos2.add(0,0,2)).block != Blocks.air) {
-                    //right
-                    timer(1000) {
-                        KeyBinding.setKeyBindState(mc.gameSettings.keyBindLeft.keyCode, true)
-                        KeyBinding.setKeyBindState(mc.gameSettings.keyBindRight.keyCode, false)
-                    }
-                }
-            }
-            EnumFacing.WEST ->  {
-                var pos2 = pos.add(0, 0, 1)
-
-                if(mc.theWorld.getBlockState(pos2).block != Blocks.air){
-                    //left
-                    timer(1000) {
-                        KeyBinding.setKeyBindState(mc.gameSettings.keyBindRight.keyCode, true)
-                        KeyBinding.setKeyBindState(mc.gameSettings.keyBindLeft.keyCode, false)
-                    }
-                } else if(mc.theWorld.getBlockState(pos2.add(0,0,-2)).block != Blocks.air) {
+                } else if (mc.theWorld.getBlockState(pos.north(1)).block != Blocks.air) {
                     //right
                     timer(1000) {
                         KeyBinding.setKeyBindState(mc.gameSettings.keyBindLeft.keyCode, true)
