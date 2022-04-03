@@ -65,6 +65,7 @@ class SShapedMacro {
     @SubscribeEvent
     fun onTick(event: TickEvent.PlayerTickEvent){
         if(isActive){
+            mc.thePlayer.rotationPitch == nekoconfig.sShapedPitch
             if(nekoconfig.sShapedYaw == 0){
                 mc.thePlayer.rotationYaw = 180F
             } else if(nekoconfig.sShapedYaw == 1){
