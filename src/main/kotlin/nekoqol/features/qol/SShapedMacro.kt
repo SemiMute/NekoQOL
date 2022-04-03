@@ -15,6 +15,8 @@ import net.minecraft.init.Blocks
 import net.minecraft.util.EnumFacing
 import net.minecraftforge.event.world.WorldEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
+import net.minecraftforge.fml.common.gameevent.InputEvent.KeyInputEvent
+import net.minecraftforge.fml.common.gameevent.PlayerEvent
 import net.minecraftforge.fml.common.gameevent.TickEvent
 import net.minecraftforge.fml.common.gameevent.TickEvent.WorldTickEvent
 import java.util.*
@@ -32,6 +34,17 @@ class SShapedMacro {
     fun startMacro() {
         KeyBinding.setKeyBindState(mc.gameSettings.keyBindAttack.keyCode, true)
         isActive = true
+    }
+
+    @SubscribeEvent
+    fun onKeyPress(event: KeyInputEvent) {
+        if(NekoQOL.keyBinds[0].isPressed) {
+            if(!isActive) {
+                startMacro()
+            } else {
+                stopMacro()
+            }
+        }
     }
 
     fun stopMacro() {
