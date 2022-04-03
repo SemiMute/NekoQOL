@@ -66,9 +66,6 @@ tasks {
     }
     named<Jar>("jar") {
         archiveBaseName.set("NekoQOL")
-        manifest{
-            destinationDir = file("C:\\Users\\user\\Desktop\\MultiMC\\instances\\mod develop\\.minecraft\\mods")
-        }
         manifest.attributes(
             "FMLCorePluginContainsFMLMod" to true,
             "FMLCorePlugin" to "nekoqol.forge.FMLLoadingPlugin",
