@@ -67,7 +67,7 @@ class SShapedMacro {
     @SubscribeEvent
     fun onTick(event: TickEvent.PlayerTickEvent){
         if(isActive){
-            mc.thePlayer.rotationPitch == nekoconfig.sShapedPitch
+            mc.thePlayer.rotationPitch = nekoconfig.sShapedPitch
             if(nekoconfig.sShapedYaw == 0){
                 mc.thePlayer.rotationYaw = 180F
             } else if(nekoconfig.sShapedYaw == 1){
@@ -92,7 +92,8 @@ class SShapedMacro {
                         KeyBinding.setKeyBindState(mc.gameSettings.keyBindRight.keyCode, true)
                         KeyBinding.setKeyBindState(mc.gameSettings.keyBindLeft.keyCode, false)
                     }
-                } else if (mc.theWorld.getBlockState(pos.immutable.north(1)).block != Blocks.air || mc.theWorld.getBlockState(pos).block != Blocks.air) {
+                }
+                if (mc.theWorld.getBlockState(pos.immutable.north(1)).block != Blocks.air || mc.theWorld.getBlockState(pos).block != Blocks.air) {
                     //right
                     timer(1000) {
                         KeyBinding.setKeyBindState(mc.gameSettings.keyBindLeft.keyCode, true)
