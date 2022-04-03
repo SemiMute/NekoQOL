@@ -90,6 +90,7 @@ class SShapedMacro {
         when(dir) {
             EnumFacing.NORTH -> {
                 var block1 = mc.theWorld.getBlockState(pos.immutable.add(0.0, 0.0, 0.0).east(1)).block
+                var block = mc.theWorld.getBlockState(pos.immutable.add(0.0, 0.0, 0.0).west(1)).block
                 if (block1 != Blocks.air) {
                     //left
                     timer(1000) {
@@ -97,9 +98,7 @@ class SShapedMacro {
                         KeyBinding.setKeyBindState(mc.gameSettings.keyBindRight.keyCode, false)
                         KeyBinding.setKeyBindState(mc.gameSettings.keyBindLeft.keyCode, true)
                     }
-                }
-                var block = mc.theWorld.getBlockState(pos.immutable.add(0.0, 0.0, 0.0).west(1)).block
-                if (block != Blocks.air) {
+                } else if (block != Blocks.air) {
                     //right
                     timer(1000) {
                         if( !isActive ) return@timer
@@ -111,6 +110,7 @@ class SShapedMacro {
 
             EnumFacing.SOUTH -> {
                 var block1 = mc.theWorld.getBlockState(pos.immutable.add(0.0, 0.0, 0.0).east(1)).block
+                var block = mc.theWorld.getBlockState(pos.immutable.add(0.0, 0.0, 0.0).west(1)).block
                 if (block1 != Blocks.air) {
                     //left
                     timer(1000) {
@@ -118,9 +118,7 @@ class SShapedMacro {
                         KeyBinding.setKeyBindState(mc.gameSettings.keyBindRight.keyCode, true)
                         KeyBinding.setKeyBindState(mc.gameSettings.keyBindLeft.keyCode, false)
                     }
-                }
-                var block = mc.theWorld.getBlockState(pos.immutable.add(0.0, 0.0, 0.0).west(1)).block
-                if (block != Blocks.air) {
+                } else if (block != Blocks.air) {
                     //right
                     timer(1000) {
                         if( !isActive ) return@timer
@@ -132,6 +130,7 @@ class SShapedMacro {
 
             EnumFacing.WEST -> {
                 var block1 = mc.theWorld.getBlockState(pos.immutable.add(0.0, 0.0, 0.0).west(1)).block
+                var block = mc.theWorld.getBlockState(pos.immutable.add(0.0, 0.0, 0.0).north(1)).block
                 if (block1 != Blocks.air) {
                     //left
                     timer(1000) {
@@ -139,9 +138,7 @@ class SShapedMacro {
                         KeyBinding.setKeyBindState(mc.gameSettings.keyBindRight.keyCode, true)
                         KeyBinding.setKeyBindState(mc.gameSettings.keyBindLeft.keyCode, false)
                     }
-                }
-                var block = mc.theWorld.getBlockState(pos.immutable.add(0.0, 0.0, 0.0).north(1)).block
-                if (block != Blocks.air) {
+                } else if (block != Blocks.air) {
                     //right
                     timer(1000) {
                         if( !isActive ) return@timer
@@ -153,6 +150,7 @@ class SShapedMacro {
 
             EnumFacing.EAST -> {
                 var block1 = mc.theWorld.getBlockState(pos.immutable.add(0.0, 0.0, 0.0).west(1)).block
+                var block = mc.theWorld.getBlockState(pos.immutable.add(0.0, 0.0, 0.0).north(1)).block
                 if (block1 != Blocks.air) {
                     //left
                     timer(1000) {
@@ -160,9 +158,7 @@ class SShapedMacro {
                         KeyBinding.setKeyBindState(mc.gameSettings.keyBindRight.keyCode, false)
                         KeyBinding.setKeyBindState(mc.gameSettings.keyBindLeft.keyCode, true)
                     }
-                }
-                var block = mc.theWorld.getBlockState(pos.immutable.add(0.0, 0.0, 0.0).north(1)).block
-                if (block != Blocks.air) {
+                } else if (block != Blocks.air) {
                     //right
                     timer(1000) {
                         if( !isActive ) return@timer
