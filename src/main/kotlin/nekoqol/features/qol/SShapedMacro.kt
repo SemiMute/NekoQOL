@@ -97,8 +97,8 @@ class SShapedMacro {
                 } else if(mc.theWorld.getBlockState(pos2.add(2,0,0)).block.isCollidable) {
                     //right
                     timer(1000) {
-                        KeyBinding.setKeyBindState(mc.gameSettings.keyBindLeft.keyCode, true)
-                        KeyBinding.setKeyBindState(mc.gameSettings.keyBindRight.keyCode, false)
+                        KeyBinding.setKeyBindState(mc.gameSettings.keyBindLeft.keyCode, false)
+                        KeyBinding.setKeyBindState(mc.gameSettings.keyBindRight.keyCode, true)
                     }
                 }
             }
@@ -114,8 +114,8 @@ class SShapedMacro {
                 } else if(mc.theWorld.getBlockState(pos2.add(-2,0,0)) != Blocks.air) {
                     //right
                     timer(1000) {
-                        KeyBinding.setKeyBindState(mc.gameSettings.keyBindLeft.keyCode, true)
-                        KeyBinding.setKeyBindState(mc.gameSettings.keyBindRight.keyCode, false)
+                        KeyBinding.setKeyBindState(mc.gameSettings.keyBindLeft.keyCode, false)
+                        KeyBinding.setKeyBindState(mc.gameSettings.keyBindRight.keyCode, true)
                     }
                 }
             }
@@ -131,8 +131,8 @@ class SShapedMacro {
                 } else if(mc.theWorld.getBlockState(pos2.add(0,0,2)).block != Blocks.air) {
                     //right
                     timer(1000) {
-                        KeyBinding.setKeyBindState(mc.gameSettings.keyBindLeft.keyCode, true)
-                        KeyBinding.setKeyBindState(mc.gameSettings.keyBindRight.keyCode, false)
+                        KeyBinding.setKeyBindState(mc.gameSettings.keyBindLeft.keyCode, false)
+                        KeyBinding.setKeyBindState(mc.gameSettings.keyBindRight.keyCode, true)
                     }
                 }
             }
@@ -148,8 +148,8 @@ class SShapedMacro {
                 } else if(mc.theWorld.getBlockState(pos2.add(0,0,-2)).block != Blocks.air) {
                     //right
                     timer(1000) {
-                        KeyBinding.setKeyBindState(mc.gameSettings.keyBindLeft.keyCode, true)
-                        KeyBinding.setKeyBindState(mc.gameSettings.keyBindRight.keyCode, false)
+                        KeyBinding.setKeyBindState(mc.gameSettings.keyBindLeft.keyCode, false)
+                        KeyBinding.setKeyBindState(mc.gameSettings.keyBindRight.keyCode, true)
                     }
                 }
             }
