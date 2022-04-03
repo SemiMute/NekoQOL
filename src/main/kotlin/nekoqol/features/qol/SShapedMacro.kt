@@ -85,17 +85,17 @@ class SShapedMacro {
 
     fun checkBlocks() {
         val dir = mc.thePlayer.horizontalFacing
-        val pos = BlockPos(mc.thePlayer.position.x - 0.5, mc.thePlayer.position.y - 0.0, mc.thePlayer.position.z - 0.5)
+        val pos = BlockPos(mc.thePlayer.position.x , mc.thePlayer.position.y , mc.thePlayer.position.z )
 
         when(dir) {
             EnumFacing.WEST -> {
-                if (mc.theWorld.getBlockState(pos.immutable.south(1)).block != Blocks.air) {
+                if (mc.theWorld.getBlockState(pos.immutable.south(1).add(-0.5,0.0,-0.5)).block != Blocks.air) {
                     //left
                     timer(1000) {
                         KeyBinding.setKeyBindState(mc.gameSettings.keyBindRight.keyCode, true)
                         KeyBinding.setKeyBindState(mc.gameSettings.keyBindLeft.keyCode, false)
                     }
-                } else if (mc.theWorld.getBlockState(pos.immutable.north(1)).block != Blocks.air) {
+                } else if (mc.theWorld.getBlockState(pos.immutable.add(0.5,0.0,0.5).north(1)).block != Blocks.air) {
                     //right
                     timer(1000) {
                         KeyBinding.setKeyBindState(mc.gameSettings.keyBindLeft.keyCode, true)
