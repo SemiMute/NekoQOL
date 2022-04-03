@@ -12,6 +12,7 @@ import nekoqol.utils.Utils.isPrivateIsland
 import nekoqol.utils.Utils.modMessage
 import net.minecraft.client.settings.KeyBinding
 import net.minecraft.init.Blocks
+import net.minecraft.util.BlockPos
 import net.minecraft.util.EnumFacing
 import net.minecraftforge.event.world.WorldEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
@@ -81,18 +82,17 @@ class SShapedMacro {
 
     fun checkBlocks() {
         val dir = mc.thePlayer.horizontalFacing
-        val pos = mc.thePlayer.position
+        val pos = BlockPos(mc.thePlayer.position.x, mc.thePlayer.position.y, mc.thePlayer.position.z)
 
         when(dir) {
             EnumFacing.WEST -> {
-
-                if (mc.theWorld.getBlockState(pos.south(1)).block != Blocks.air) {
+                if (mc.theWorld.getBlockState(pos.immutable.south(1)).block != Blocks.air) {
                     //left
                     timer(1000) {
                         KeyBinding.setKeyBindState(mc.gameSettings.keyBindRight.keyCode, true)
                         KeyBinding.setKeyBindState(mc.gameSettings.keyBindLeft.keyCode, false)
                     }
-                } else if (mc.theWorld.getBlockState(pos.north(1)).block != Blocks.air) {
+                } else if (mc.theWorld.getBlockState(pos.immutable.north(1)).block != Blocks.air) {
                     //right
                     timer(1000) {
                         KeyBinding.setKeyBindState(mc.gameSettings.keyBindLeft.keyCode, true)
