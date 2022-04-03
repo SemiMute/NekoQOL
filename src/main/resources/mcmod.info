@@ -8,6 +8,8 @@
     "url": "https://github.com/SemiMute/NekoQOL",
     "authorList": [
       "SemiMute"
-    ]
+    ],
+    "logoFile": "assets/nekoqol/textures/logo.png",
+    "credits": "0Kelvin_, Der_s"
   }
 ]

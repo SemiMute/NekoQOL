@@ -11,6 +11,7 @@ import nekoqol.NekoQOL.Companion.nekoconfig
 import nekoqol.config.Config.mimicMessage
 import nekoqol.utils.DiscordWebhook
 import nekoqol.utils.Utils.isInHub
+import nekoqol.utils.Utils.isPrivateIsland
 import nekoqol.utils.Utils.modMessage
 import nekoqol.utils.Utils.sendCenteredMessage
 import java.text.DecimalFormat
@@ -49,6 +50,7 @@ class NekoQOLCommands : CommandBase() {
             UChat.chat("&7- &b/nekoqol config &9- &7Configure your settings NYA~!")
             UChat.chat("&7- &b/nekoqol filter &9- &c(( DISABLED FEATURE ))")
             UChat.chat("&7- &b/nekoqol testWebhook &9- &7Sends a test webhook message!")
+            UChat.chat("&7- &b/nekoqol limbo &9- &7Forces you into limbo")
             UChat.chat("&7- &b/nekoqol credits&9 - &7Shows off some wonderful people!")
             UChat.chat("")
             UChat.chat("&b&m====================================================")
@@ -60,19 +62,16 @@ class NekoQOLCommands : CommandBase() {
             sendCenteredMessage("&b&lNekoQOL &7- &fCredits")
             UChat.chat("&7Some special thanks to those who've helped!")
             UChat.chat("")
+            UChat.chat("&7- &b&l[DEVELOPER] &bDer_s &7Debugging is pain")
             UChat.chat("&7- &bAzael_Mew &7Helped get the project started in ChatTriggers!")
             UChat.chat("&7- &b0Kelvin_ &7Helped me learn Kotlin, the reason its now a Mod!")
-            UChat.chat("&7- &bDer_s &7Debugging is pain")
             UChat.chat("")
             UChat.chat("&b&m====================================================")
             return
         }
-        if(args[0] == "isInHub"){
-            if(isInHub()){
-                UChat.chat("You're in the hub, congrats")
-            } else {
-                UChat.chat("Not in the hub, L bozo")
-            }
+        if(args[0] == "limbo"){
+            modMessage("&cAttempting to force client into limbo..")
+            mc.thePlayer.sendChatMessage("§")
         }
         if(args[0] == "testWebhook"){
             if(nekoconfig.discordURL == ""){
@@ -92,17 +91,12 @@ class NekoQOLCommands : CommandBase() {
             modMessage("&fAttempting to send a &3Discord Webhook&f message while pinging..")
             DiscordWebhook(nekoconfig.discordURL).setContent("<@${NekoQOL.nekoconfig.discordID}> **NYAA!** This is a test message to make sure your webhook URL with a ping is setup!").execute()
         }
-        if(args[0] == "disconnectHandler"){
-            UChat.chat("&cAttempting a disconnect packet")
-            mc.theWorld.sendQuittingDisconnectingPacket()
-        }
-        if( args[0].lowercase() == "test"){
-            mc.thePlayer.playSound("nekoqol:nyaa", 10f, 1f)
-            val randNum = Random.nextInt(100000, 100000000)
-            val amount: Double = randNum.toDouble()
-            val formatter = DecimalFormat("#,###.0")
-            UChat.chat("&cYou died and lost ${formatter.format(amount)} coins!")
-            return
+        if(args[0] == "test"){
+            if(isPrivateIsland()){
+                UChat.chat("&cDetected user in the private island")
+            } else {
+                UChat.chat("&cDid not detect anything")
+            }
         }
         if (args[0].lowercase() == "config"){
             mc.thePlayer.playSound("nekoqol:nyaa", 10f, 1f)
@@ -111,14 +105,6 @@ class NekoQOLCommands : CommandBase() {
         if (args[0].lowercase() == "configLegacy"){
             modMessage("&cOpening the legacy config from SkyblockClient")
             display = config.gui()
-        }
-        val subcommand = args[0].lowercase()
-        if (subcommand == "mimicmessage") {
-            return modMessage("&chi ;3")
-            args[0] = ""
-            val message = args.joinToString(" ").trim()
-            mimicMessage = message
-            modMessage("§aMimic message changed to §f$message")
         }
     }
 }

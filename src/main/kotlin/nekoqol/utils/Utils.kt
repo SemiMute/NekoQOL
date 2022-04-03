@@ -355,7 +355,7 @@ object Utils {
     fun isPrivateIsland(): Boolean {
         return sidebarLines.any { s -> PrivateIsland.any { ScoreboardUtils.cleanSB(s).contains(it) } }
     }
-    private val PrivateIsland = listOf("Your")
+    private val PrivateIsland = listOf("You")
     private val HubServer = listOf(
         "Village",
         "Forest",

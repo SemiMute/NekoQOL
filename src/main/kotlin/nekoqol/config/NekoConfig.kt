@@ -13,15 +13,14 @@ object NekoConfig : Vigilant(File("./config/NekoQOL/nekoconfig.toml"), "NekoQOL 
 
     // FARM MACROING
     @Property(
-        type = PropertyType.DECIMAL_SLIDER,
-        name = "S Shaped Direction Yaw",
-        description = "Forces your YAW to the number below whilst active",
+        type = PropertyType.SELECTOR,
+        name = "S Shaped Direction",
+        description = "Forces your client to face a direction",
         category = "Macros",
         subcategory = "S Shaped",
-        minF = -180F,
-        maxF = 180F
+        options = ["North", "South", "East", "West"]
     )
-    var sShapedYaw = 90F
+    var sShapedYaw = 0
 
     @Property(
         type = PropertyType.DECIMAL_SLIDER,

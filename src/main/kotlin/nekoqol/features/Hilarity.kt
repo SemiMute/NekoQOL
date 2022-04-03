@@ -1,33 +1,24 @@
 package nekoqol.features
 
 import gg.essential.universal.UChat
-import gg.essential.universal.utils.MCStringTextComponent
 import nekoqol.NekoQOL
 import nekoqol.NekoQOL.Companion.foragingHilarityArray
-import nekoqol.NekoQOL.Companion.mc
 import nekoqol.NekoQOL.Companion.nameArray
 import nekoqol.NekoQOL.Companion.puzzleFailHilarityArray
 import nekoqol.NekoQOL.Companion.skillLevelUpHilarityArray
 import nekoqol.utils.ScoreboardUtils
-import net.minecraft.client.Minecraft
 import net.minecraft.entity.monster.EntityCreeper
-import net.minecraft.scoreboard.ScoreObjective
-import net.minecraft.scoreboard.Scoreboard
 import net.minecraft.util.ChatComponentTranslation
-import net.minecraft.util.IntegerCache
 import net.minecraft.util.StringUtils
 import net.minecraftforge.client.event.ClientChatReceivedEvent
 import net.minecraftforge.client.event.RenderWorldLastEvent
-import net.minecraftforge.event.ServerChatEvent
 import net.minecraftforge.event.entity.living.LivingDeathEvent
 import net.minecraftforge.event.world.WorldEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
-import java.awt.TextComponent
 import java.text.DecimalFormat
 import java.util.*
 import kotlin.concurrent.timerTask
 import kotlin.random.Random
-import kotlin.reflect.full.declaredFunctions
 
 class Hilarity {
 
