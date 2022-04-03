@@ -54,6 +54,9 @@ class SShapedMacro {
 
     fun stopMacro() {
         KeyBinding.setKeyBindState(mc.gameSettings.keyBindAttack.keyCode, false)
+        KeyBinding.setKeyBindState(mc.gameSettings.keyBindLeft.keyCode, false)
+        KeyBinding.setKeyBindState(mc.gameSettings.keyBindRight.keyCode, false)
+
         isActive = false
     }
 
