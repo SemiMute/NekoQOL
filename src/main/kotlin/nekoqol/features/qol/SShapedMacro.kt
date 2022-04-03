@@ -57,9 +57,6 @@ class SShapedMacro {
 
     @SubscribeEvent
     fun onMove(event: WorldTickEvent) {
-        if(mc.thePlayer.lastTickPosX == mc.thePlayer.posX) return
-        if(mc.thePlayer.lastTickPosY == mc.thePlayer.posY) return
-        if(mc.thePlayer.lastTickPosZ == mc.thePlayer.posZ) return
         if(!isActive) return
 
         checkBlocks()
@@ -97,8 +94,8 @@ class SShapedMacro {
                 } else if(mc.theWorld.getBlockState(pos2.add(2,0,0)).block.isCollidable) {
                     //right
                     timer(1000) {
-                        KeyBinding.setKeyBindState(mc.gameSettings.keyBindLeft.keyCode, false)
-                        KeyBinding.setKeyBindState(mc.gameSettings.keyBindRight.keyCode, true)
+                        KeyBinding.setKeyBindState(mc.gameSettings.keyBindLeft.keyCode, true)
+                        KeyBinding.setKeyBindState(mc.gameSettings.keyBindRight.keyCode, false)
                     }
                 }
             }
@@ -114,8 +111,8 @@ class SShapedMacro {
                 } else if(mc.theWorld.getBlockState(pos2.add(-2,0,0)) != Blocks.air) {
                     //right
                     timer(1000) {
-                        KeyBinding.setKeyBindState(mc.gameSettings.keyBindLeft.keyCode, false)
-                        KeyBinding.setKeyBindState(mc.gameSettings.keyBindRight.keyCode, true)
+                        KeyBinding.setKeyBindState(mc.gameSettings.keyBindLeft.keyCode, true)
+                        KeyBinding.setKeyBindState(mc.gameSettings.keyBindRight.keyCode, false)
                     }
                 }
             }
@@ -131,8 +128,8 @@ class SShapedMacro {
                 } else if(mc.theWorld.getBlockState(pos2.add(0,0,2)).block != Blocks.air) {
                     //right
                     timer(1000) {
-                        KeyBinding.setKeyBindState(mc.gameSettings.keyBindLeft.keyCode, false)
-                        KeyBinding.setKeyBindState(mc.gameSettings.keyBindRight.keyCode, true)
+                        KeyBinding.setKeyBindState(mc.gameSettings.keyBindLeft.keyCode, true)
+                        KeyBinding.setKeyBindState(mc.gameSettings.keyBindRight.keyCode, false)
                     }
                 }
             }
@@ -148,8 +145,8 @@ class SShapedMacro {
                 } else if(mc.theWorld.getBlockState(pos2.add(0,0,-2)).block != Blocks.air) {
                     //right
                     timer(1000) {
-                        KeyBinding.setKeyBindState(mc.gameSettings.keyBindLeft.keyCode, false)
-                        KeyBinding.setKeyBindState(mc.gameSettings.keyBindRight.keyCode, true)
+                        KeyBinding.setKeyBindState(mc.gameSettings.keyBindLeft.keyCode, true)
+                        KeyBinding.setKeyBindState(mc.gameSettings.keyBindRight.keyCode, false)
                     }
                 }
             }
