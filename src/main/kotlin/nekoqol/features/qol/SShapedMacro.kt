@@ -2,6 +2,7 @@ package nekoqol.features.qol
 
 import nekoqol.NekoQOL
 import nekoqol.NekoQOL.Companion.mc
+import nekoqol.NekoQOL.Companion.nekoconfig
 import nekoqol.utils.DiscordWebhook
 import nekoqol.utils.Utils.getDiscordPing
 import nekoqol.utils.Utils.isInHub
@@ -43,8 +44,24 @@ class SShapedMacro {
         if(mc.thePlayer.lastTickPosX == mc.thePlayer.posX) return
         if(mc.thePlayer.lastTickPosY == mc.thePlayer.posY) return
         if(mc.thePlayer.lastTickPosZ == mc.thePlayer.posZ) return
+        if(!isActive) return
 
         checkBlocks()
+    }
+
+    @SubscribeEvent
+    fun onTick(event: TickEvent.PlayerTickEvent){
+        if(isActive){
+            if(nekoconfig.sShapedYaw == 0){
+                mc.thePlayer.rotationYaw = 180F
+            } else if(nekoconfig.sShapedYaw == 1){
+                mc.thePlayer.rotationYaw = 0F
+            } else if(nekoconfig.sShapedYaw == 2){
+                mc.thePlayer.rotationYaw = -90F
+            } else if(nekoconfig.sShapedYaw == 3){
+                mc.thePlayer.rotationYaw = 90F
+            }
+        }
     }
 
     fun checkBlocks() {
