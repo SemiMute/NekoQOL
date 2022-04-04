@@ -15,6 +15,7 @@ import nekoqol.config.NekoConfig
 import nekoqol.features.*
 import nekoqol.features.dungeons.*
 import nekoqol.features.qol.SShapedMacro
+import nekoqol.features.qol.SpiralMacro
 import nekoqol.utils.DiscordWebhook
 import nekoqol.utils.EmbedObject
 import nekoqol.utils.ScoreboardUtils
@@ -113,7 +114,8 @@ class NekoQOL {
             Hilarity(),
             AutoSell(),
             SShapedMacro(),
-            rat()
+            rat(),
+            SpiralMacro()
         ).forEach(MinecraftForge.EVENT_BUS::register)
 
         for (keyBind in keyBinds) {
@@ -182,6 +184,7 @@ class NekoQOL {
         var inDungeons = false
         val keyBinds = arrayOf(
             KeyBinding("Toggle S Shaped Macro", Keyboard.KEY_NONE, "NekoQOL"),
+            KeyBinding("Toggle Spiral Macro", Keyboard.KEY_NONE, "NekoQOL"),
             //KeyBinding("Bone Macro", Keyboard.KEY_B, "NekoQOL"),
             //KeyBinding("Ghost Block", Keyboard.KEY_G, "NekoQOL"),
             // Toggle keybinds until I make better way of doing this lol

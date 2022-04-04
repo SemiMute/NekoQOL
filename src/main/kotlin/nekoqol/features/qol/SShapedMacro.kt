@@ -25,15 +25,16 @@ import net.minecraftforge.fml.common.gameevent.TickEvent
 import java.util.*
 import kotlin.concurrent.timerTask
 
-var isActive = false
-var failSafeActive = false
-
-var thread: Thread? = null
-var lastUpdate = 0L
-
-var onWorldCooldown: Long = 0
-
 class SShapedMacro {
+
+    var isActive = false
+    var failSafeActive = false
+
+    var thread: Thread? = null
+    var lastUpdate = 0L
+
+    var onWorldCooldown: Long = 0
+
     private fun startMacro() {
         KeyBinding.setKeyBindState(mc.gameSettings.keyBindAttack.keyCode, true)
         isActive = true
