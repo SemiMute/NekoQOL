@@ -40,6 +40,13 @@ class SShapedMacro {
         isActive = true
         failSafeActive = true
 
+        if(mc.thePlayer.capabilities.isFlying){
+            KeyBinding.setKeyBindState(mc.gameSettings.keyBindSneak.keyCode, true)
+            Timer().schedule(timerTask {
+                    KeyBinding.setKeyBindState(mc.gameSettings.keyBindSneak.keyCode, false)
+            }, 1000)
+        }
+
         if (lastDir == 1) {
             KeyBinding.setKeyBindState(mc.gameSettings.keyBindRight.keyCode, false)
             KeyBinding.setKeyBindState(mc.gameSettings.keyBindLeft.keyCode, true)

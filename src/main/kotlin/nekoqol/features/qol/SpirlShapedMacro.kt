@@ -3,7 +3,6 @@ package nekoqol.features.qol
 import nekoqol.NekoQOL
 import nekoqol.NekoQOL.Companion.mc
 import nekoqol.features.qol.Helper.to180
-import nekoqol.features.qol.Helper.working
 import nekoqol.utils.DiscordWebhook
 import nekoqol.utils.Utils
 import nekoqol.utils.Utils.modMessage
@@ -24,7 +23,6 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.common.gameevent.InputEvent
 import net.minecraftforge.fml.common.gameevent.TickEvent
 import java.util.*
-import kotlin.concurrent.timer
 import kotlin.concurrent.timerTask
 import kotlin.math.atan2
 import kotlin.math.sqrt
@@ -44,6 +42,13 @@ class SpiralMacro {
         isActive = true
 
         working = false
+
+        if(mc.thePlayer.capabilities.isFlying){
+            KeyBinding.setKeyBindState(mc.gameSettings.keyBindSneak.keyCode, true)
+            Timer().schedule(timerTask {
+                KeyBinding.setKeyBindState(mc.gameSettings.keyBindSneak.keyCode, false)
+            }, 1000)
+        }
 
         KeyBinding.setKeyBindState(mc.gameSettings.keyBindAttack.keyCode, true)
         KeyBinding.setKeyBindState(mc.gameSettings.keyBindLeft.keyCode, true)

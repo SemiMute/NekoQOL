@@ -4,6 +4,7 @@ import gg.essential.universal.UChat
 import nekoqol.NekoQOL
 import nekoqol.NekoQOL.Companion.foragingHilarityArray
 import nekoqol.NekoQOL.Companion.nameArray
+import nekoqol.NekoQOL.Companion.nekoconfig
 import nekoqol.NekoQOL.Companion.puzzleFailHilarityArray
 import nekoqol.NekoQOL.Companion.skillLevelUpHilarityArray
 import nekoqol.utils.ScoreboardUtils
@@ -15,6 +16,7 @@ import net.minecraftforge.client.event.RenderWorldLastEvent
 import net.minecraftforge.event.entity.living.LivingDeathEvent
 import net.minecraftforge.event.world.WorldEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
+import net.minecraftforge.fml.common.gameevent.TickEvent
 import java.text.DecimalFormat
 import java.util.*
 import kotlin.concurrent.timerTask
@@ -67,6 +69,22 @@ class Hilarity {
             }
         }
     }
+
+    @SubscribeEvent
+    fun onTickEvent(event: TickEvent.PlayerTickEvent){
+        if(nekoconfig.hilarityMaster){
+            if(nekoconfig.hilaritySkyblock){
+                if(NekoQOL.inSkyblock){
+                    var randInt = Random.nextInt(1, 1_000_000_000)
+                    if(randInt > 999_999_999){
+                        UChat.chat("&bYour package of &a16,400 Skyblock Gems&b has been purchased and delivered. You may need to log out and back in to receive the full effects.")
+                    }
+                }
+            }
+        }
+    }
+
+
     private var foragingInsult = false
     @SubscribeEvent
     fun onWorldLoad(event: WorldEvent.Load) {
