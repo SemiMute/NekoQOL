@@ -2,7 +2,6 @@ package nekoqol.features.qol
 
 import nekoqol.NekoQOL
 import nekoqol.NekoQOL.Companion.mc
-import nekoqol.features.qol.Helper.to180
 import nekoqol.utils.DiscordWebhook
 import nekoqol.utils.Utils
 import nekoqol.utils.Utils.modMessage
@@ -192,8 +191,8 @@ class SpiralMacro {
                     yaw = Helper.to180((yaw * 180.0) / Math.PI - 90.0 - mc.thePlayer.rotationYaw)
 
                     for (i in 0 until  50) {
-                        mc.thePlayer.rotationYaw += (to180(-90.0) / 50.0).toFloat()
-                        mc.thePlayer.rotationPitch = 0.0f
+                        mc.thePlayer.rotationYaw += (Helper.to180(-90.0) / 50.0).toFloat()
+                        mc.thePlayer.rotationPitch += (pitch / 50.0).toFloat()
                         Thread.sleep(10)
                     }
                     timer(2000) {
@@ -300,65 +299,57 @@ class SpiralMacro {
     }
 
 
+    object Helper {
+        var rotateWorking = false
+
+        fun facePos(blockPos: BlockPos) {
+            facePos(Vec3(blockPos.x.toDouble(), blockPos.y.toDouble(), blockPos.z.toDouble()))
+        }
+
+        fun facePos(vec: Vec3) {
+            if(mc.currentScreen == null || mc.currentScreen is GuiIngameMenu || mc.currentScreen is GuiChat) {
+                if(!rotateWorking) {
+                    Thread {
+                        try {
+                            rotateWorking = true
+                            val diffX = vec.xCoord - mc.thePlayer.posX
+                            val diffY = vec.yCoord - mc.thePlayer.posY
+                            val diffZ = vec.zCoord - mc.thePlayer.posZ
+
+                            val dist = sqrt(diffX * diffX + diffZ * diffZ)
+
+                            var pitch = -atan2(dist, diffY)
+                            var yaw = atan2(diffZ, diffX)
+
+                            pitch = to180(((pitch * 180.0) / Math.PI + 90.0) * - 1.0 - mc.thePlayer.rotationPitch)
+                            yaw = to180((yaw * 180.0) / Math.PI - 90.0 - mc.thePlayer.rotationYaw)
 
 
-}
-object Helper {
-    var working = false
-
-    fun facePos(blockPos: BlockPos, pitch: Boolean = false) {
-        facePos(Vec3(blockPos.x.toDouble(), blockPos.y.toDouble(), blockPos.z.toDouble()), pitch)
-    }
-
-    fun facePos(vec: Vec3, pitchF: Boolean = false) {
-        if(mc.currentScreen == null || mc.currentScreen is GuiIngameMenu || mc.currentScreen is GuiChat) {
-            if(!working) {
-                Thread {
-                    try {
-                        working = true
-                        val diffX = vec.xCoord - mc.thePlayer.posX
-                        val diffY = vec.yCoord - mc.thePlayer.posY
-                        val diffZ = vec.zCoord - mc.thePlayer.posZ
-
-                        val dist = sqrt(diffX * diffX + diffZ * diffZ)
-
-                        var pitch = -atan2(dist, diffY)
-                        var yaw = atan2(diffZ, diffX)
-
-                        pitch = to180(((pitch * 180.0) / Math.PI + 90.0) * - 1.0 - mc.thePlayer.rotationPitch)
-                        yaw = to180((yaw * 180.0) / Math.PI - 90.0 - mc.thePlayer.rotationYaw)
-
-                        var p = 0.0f
-                        if(pitchF){
-                            p = 0.0f
-                        } else {
-                            p = (pitch / 50.0).toFloat()
+                            for (i in 0 until  50) {
+                                mc.thePlayer.rotationYaw += (yaw / 50.0).toFloat()
+                                mc.thePlayer.rotationPitch = (pitch / 50.0).toFloat()
+                                Thread.sleep(10)
+                            }
+                            rotateWorking = false
+                        } catch (e : Exception) {
+                            return@Thread
                         }
-
-                        for (i in 0 until  50) {
-                            mc.thePlayer.rotationYaw += (yaw / 50.0).toFloat()
-                            mc.thePlayer.rotationPitch = (pitch / 50.0).toFloat()
-                            Thread.sleep(10)
-                        }
-                        working = false
-                    } catch (e : Exception) {
-                        return@Thread
-                    }
-                }.start()
+                    }.start()
+                }
             }
         }
-    }
 
-    fun to180(a: Double): Double {
-        var angle = a
-        angle %= 360.0
-        while(angle > 180.0) {
-            angle -= 360.0
+        fun to180(a: Double): Double {
+            var angle = a
+            angle %= 360.0
+            while(angle > 180.0) {
+                angle -= 360.0
+            }
+            while(angle < -180.0) {
+                angle += 360.0
+            }
+            return angle
         }
-        while(angle < -180.0) {
-            angle += 360.0
-        }
-        return angle
     }
 
 }

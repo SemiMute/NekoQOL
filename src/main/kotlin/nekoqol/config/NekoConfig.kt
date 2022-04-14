@@ -32,6 +32,17 @@ object NekoConfig : Vigilant(File("./config/NekoQOL/nekoconfig.toml"), "NekoQOL 
     )
     var sShapedPitch = 0F
 
+    @Property(
+        type = PropertyType.SWITCH,
+        name = "Set Homes",
+        description = "Sets your home on each level change to be more efficient when failsafes activate",
+        category = "Macros",
+        maxF = 90F
+    )
+    var sSetHome = true
+
+    // STRAMDD
+
     // AUTO SELL
 
     @Property(
@@ -132,6 +143,14 @@ object NekoConfig : Vigilant(File("./config/NekoQOL/nekoconfig.toml"), "NekoQOL 
         description = "Does a little bit of tom foolery in the &aForaging Islands",
     )
     var hilarityForaging = true
+
+    @Property(
+        type = PropertyType.SWITCH,
+        name = "Nyaa Sound GUI",
+        category = "Hilarity",
+        description = "Play the &bNyaa&f sound every time you open up a &cContainer&f or &cInventory",
+    )
+    var nyaaContainer = false
 
     init {
         setCategoryDescription(

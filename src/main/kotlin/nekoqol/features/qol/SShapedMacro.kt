@@ -1,6 +1,5 @@
 package nekoqol.features.qol
 
-import com.google.common.base.Preconditions.checkState
 import nekoqol.NekoQOL
 import nekoqol.NekoQOL.Companion.mc
 import nekoqol.NekoQOL.Companion.nekoconfig
@@ -26,13 +25,10 @@ import java.util.*
 import kotlin.concurrent.timerTask
 
 class SShapedMacro {
-
     var isActive = false
     var failSafeActive = false
-
     var thread: Thread? = null
     var lastUpdate = 0L
-
     var onWorldCooldown: Long = 0
 
     private fun startMacro() {
@@ -60,11 +56,11 @@ class SShapedMacro {
     fun onKeyPress(event: KeyInputEvent) {
         if(NekoQOL.keyBinds[0].isPressed) {
             if(!isActive) {
-                modMessage("Starting macro...")
-                startMacro()
+                modMessage("&cSystem is currently disabled")
+                //startMacro()
             } else {
-                modMessage("Stopping macro...")
-                stopMacro()
+                modMessage("&cSystem is currently disabled")
+                //stopMacro()
             }
         }
     }
@@ -134,6 +130,8 @@ class SShapedMacro {
             stopMacro()
             modMessage("&bS Shaped Macro&f has been toggled &c&lOFF&f due to a GUI being opened")
         }
+        mc.currentServerData.pingToServer
+
 
         val east = mc.theWorld.getBlockState(pos.immutable.add(0.0, 0.0, 0.0).east(1)).block
         val west = mc.theWorld.getBlockState(pos.immutable.add(0.0, 0.0, 0.0).west(1)).block

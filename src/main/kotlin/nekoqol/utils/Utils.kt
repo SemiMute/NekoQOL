@@ -14,13 +14,13 @@ import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.init.Blocks
 import net.minecraft.item.ItemStack
-import net.minecraft.util.AxisAlignedBB
 import net.minecraft.util.BlockPos
-import net.minecraft.world.World
+import net.minecraft.util.ChatComponentText
 import net.minecraftforge.event.world.WorldEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import org.spongepowered.asm.mixin.Mixin
 import org.spongepowered.asm.mixin.gen.Accessor
+import kotlin.collections.ArrayList
 import kotlin.math.round
 
 
@@ -96,6 +96,16 @@ object Utils {
             )
         }
         GlStateManager.popMatrix()
+    }
+
+    fun getPing() {
+        val method = try {
+            Minecraft::class.java.getDeclaredMethod("field_71138_i")
+        } catch (e: NoSuchMethodException){
+            Minecraft::class.java.getDeclaredMethod("ping")
+        }
+        method.isAccessible = true
+        method.invoke(Minecraft.getMinecraft())
     }
 
     fun rightClick() {
@@ -275,52 +285,6 @@ object Utils {
         }
     }
 
-    object CropUtilities {
-        //#if MC==10809
-        private val mc = Minecraft.getMinecraft()
-        private val minecraftUtils = EssentialAPI.getMinecraftUtil()
-        val CARROT_POTATO_BOX = arrayOf(
-            AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 0.125, 1.0),
-            AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 0.1875, 1.0),
-            AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 0.25, 1.0),
-            AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 0.3125, 1.0),
-            AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 0.375, 1.0),
-            AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 0.4375, 1.0),
-            AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 0.5, 1.0),
-            AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 0.5625, 1.0)
-        )
-        val WHEAT_BOX = arrayOf(
-            AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 0.125, 1.0),
-            AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 0.25, 1.0),
-            AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 0.375, 1.0),
-            AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 0.5, 1.0),
-            AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 0.625, 1.0),
-            AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 0.75, 1.0),
-            AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 0.875, 1.0),
-            AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 1.0, 1.0)
-        )
-        val NETHER_WART_BOX = arrayOf(
-            AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 0.3125, 1.0),
-            AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 0.5, 1.0),
-            AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 0.6875, 1.0),
-            AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 0.875, 1.0)
-        )
-
-        fun updateCropsMaxY(world: World, pos: BlockPos?, block: Block) {
-            val blockState = world.getBlockState(pos)
-            val ageValue = blockState.getValue(BlockCrops.AGE)
-            val accessor: BlockAccessor = block as BlockAccessor
-            accessor.setMaxY(240.0)
-        }
-
-//        fun updateWartMaxY(world: World, pos: BlockPos?, block: Block) {
-//            (block as BlockAccessor).setMaxY(
-//                if (PatcherConfig.futureHitBoxes && (minecraftUtils.isHypixel() || mc.isIntegratedServerRunning)) NETHER_WART_BOX[world.getBlockState(
-//                    pos
-//                ).getValue(BlockNetherWart.AGE)].maxY else .25f
-//            )
-//        } //#endif
-    }
     fun getDiscordPing(message: String): String? {
         var newMsg: String
         return if(NekoQOL.nekoconfig.discordPing){
@@ -329,6 +293,10 @@ object Utils {
         } else {
             message
         }
+    }
+    fun fakeHypixelBan(message: String, length: String){
+        var message = ChatComponentText("§cYou are temporarily banned for §f${length}§c from the server!\n\n§7Reason: §r${message}\n§7Find out more: §b§nhttps://www.hypixel.net/appeal\n\n§7Ban ID: §r#49871982\n§7Sharing your Ban ID may affect the processing of your appeal!")
+        Minecraft.getMinecraft().netHandler.networkManager.closeChannel(message)
     }
     @SubscribeEvent
     fun onWorldLoad(event: WorldEvent.Load){
@@ -364,10 +332,4 @@ object Utils {
         "Graveyard",
         "Crypts"
     )
-}
-@Mixin(Block::class)
-interface BlockAccessor {
-    //#if MC==10809
-    @Accessor
-    fun setMaxY(maxY: Double) //#endif
 }

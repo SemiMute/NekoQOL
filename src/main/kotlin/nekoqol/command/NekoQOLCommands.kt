@@ -1,25 +1,28 @@
 package nekoqol.command
 
 import gg.essential.universal.UChat
+import gg.essential.vigilance.gui.settings.TextComponent
 import nekoqol.NekoQOL
-import net.minecraft.command.CommandBase
-import net.minecraft.command.ICommandSender
 import nekoqol.NekoQOL.Companion.config
 import nekoqol.NekoQOL.Companion.display
 import nekoqol.NekoQOL.Companion.mc
 import nekoqol.NekoQOL.Companion.nekoconfig
-import nekoqol.config.Config.mimicMessage
-import nekoqol.features.qol.Helper
+import nekoqol.features.qol.SpiralMacro.Helper.facePos
 import nekoqol.utils.DiscordWebhook
-import nekoqol.utils.Utils.isInHub
-import nekoqol.utils.Utils.isPrivateIsland
+import nekoqol.utils.Utils.fakeHypixelBan
+import nekoqol.utils.Utils.getPing
 import nekoqol.utils.Utils.modMessage
 import nekoqol.utils.Utils.sendCenteredMessage
+import net.minecraft.client.Minecraft
+import net.minecraft.command.CommandBase
+import net.minecraft.command.ICommandSender
 import net.minecraft.util.BlockPos
-import java.text.DecimalFormat
+import net.minecraft.util.ChatComponentText
+import net.minecraft.util.EnumChatFormatting
+import net.minecraft.util.IChatComponent
 import java.util.*
-import kotlin.concurrent.timerTask
 import kotlin.random.Random
+
 
 class NekoQOLCommands : CommandBase() {
     override fun getCommandName(): String {
@@ -94,11 +97,32 @@ class NekoQOLCommands : CommandBase() {
             DiscordWebhook(nekoconfig.discordURL).setContent("<@${NekoQOL.nekoconfig.discordID}> **NYAA!** This is a test message to make sure your webhook URL with a ping is setup!").execute()
         }
         if(args[0] == "test"){
-            if(isPrivateIsland()){
-                UChat.chat("&cDetected user in the private island")
-            } else {
-                UChat.chat("&cDid not detect anything")
+            if(args[1] == "hilarityGems"){
+                modMessage("&cForcing hilarity type FakeGemEvent")
+                UChat.chat("&bYour package of &a16,400 Skyblock Gems&b has been purchased and delivered. You may need to log out and back in to receive the full effects.")
             }
+            if(args[1] == "ping"){
+                UChat.chat("&b&lNYAA DEBUGGER: &fPing == ${getPing()}")
+            }
+            if(args[1] == "antiadmin"){
+                val randLocations = listOf(
+                    "0;0",
+                    "100;100",
+                    "73;0",
+                    "35;100"
+                )
+                var locChoice = randLocations[Random.nextInt(randLocations.size)]
+                var pos = BlockPos(1111, 69, 100)
+                facePos(pos)
+                modMessage("&c&lDEBUGGER: &fStarting &cAnti-Admin&f Failsafe test.")
+            }
+            if(args[1] == "disconnectTest"){
+                fakeHypixelBan("Boosting detected on one or multiple SkyBlock profiles.", "89d 23h 59m 57s")
+            }
+        }
+        if(args[0] == "filter"){
+            modMessage("&cFilter no work sorreh")
+            mc.gameSettings.renderDistanceChunks = 999
         }
         if (args[0].lowercase() == "config"){
             mc.thePlayer.playSound("nekoqol:nyaa", 10f, 1f)

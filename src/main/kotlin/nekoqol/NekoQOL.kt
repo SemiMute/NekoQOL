@@ -16,6 +16,7 @@ import nekoqol.features.*
 import nekoqol.features.dungeons.*
 import nekoqol.features.qol.SShapedMacro
 import nekoqol.features.qol.SpiralMacro
+import nekoqol.features.qol.StrandedQOL
 import nekoqol.utils.DiscordWebhook
 import nekoqol.utils.EmbedObject
 import nekoqol.utils.ScoreboardUtils
@@ -79,6 +80,7 @@ class NekoQOL {
                 .filterIsInstance<JsonPrimitive>()
                 .map { jsonPrimitive -> jsonPrimitive.asString }
         }
+
         // Random.nextInt()
 
         ClientCommandHandler.instance.registerCommand(NekoQOLCommands())
@@ -110,12 +112,14 @@ class NekoQOL {
             SimonSaysButtons(),
             Terminals(),
             ThornStun(),
-            */WormFishingLavaESP(),
+            *///WormFishingLavaESP(),
             Hilarity(),
-            AutoSell(),
+            //AutoSell(),
             SShapedMacro(),
             rat(),
-            SpiralMacro()
+            //SpiralMacro(),
+            //AutoArmor(),
+            //StrandedQOL()
         ).forEach(MinecraftForge.EVENT_BUS::register)
 
         for (keyBind in keyBinds) {
@@ -170,6 +174,7 @@ class NekoQOL {
         const val MOD_NAME = "NekoQOL"
         const val MOD_VERSION = "0.1.1"
         const val CHAT_PREFIX = "§8[§bNeko§7QOL§8]"
+        var rotateWorking = false
         val mc: Minecraft = Minecraft.getMinecraft()
         var config = Config
         var nekoconfig = NekoConfig
@@ -185,11 +190,16 @@ class NekoQOL {
         val keyBinds = arrayOf(
             KeyBinding("Toggle S Shaped Macro", Keyboard.KEY_NONE, "NekoQOL"),
             KeyBinding("Toggle Spiral Macro", Keyboard.KEY_NONE, "NekoQOL"),
-            //KeyBinding("Bone Macro", Keyboard.KEY_B, "NekoQOL"),
-            //KeyBinding("Ghost Block", Keyboard.KEY_G, "NekoQOL"),
-            // Toggle keybinds until I make better way of doing this lol
-            //KeyBinding("Toggle NoRotate", Keyboard.KEY_NONE, "NekoQOL"),
-            //KeyBinding("Toggle AntiKB", Keyboard.KEY_NONE, "NekoQOL"),
+            KeyBinding("Auto Armor #1", Keyboard.KEY_NONE, "NekoQOL Wardrobe"),
+            KeyBinding("Auto Armor #2", Keyboard.KEY_NONE, "NekoQOL Wardrobe"),
+            KeyBinding("Auto Armor #3", Keyboard.KEY_NONE, "NekoQOL Wardrobe"),
+            KeyBinding("Auto Armor #4", Keyboard.KEY_NONE, "NekoQOL Wardrobe"),
+            KeyBinding("Auto Armor #5", Keyboard.KEY_NONE, "NekoQOL Wardrobe"),
+            KeyBinding("Auto Armor #6", Keyboard.KEY_NONE, "NekoQOL Wardrobe"),
+            KeyBinding("Auto Armor #7", Keyboard.KEY_NONE, "NekoQOL Wardrobe"),
+            KeyBinding("Auto Armor #8", Keyboard.KEY_NONE, "NekoQOL Wardrobe"),
+            KeyBinding("Auto Armor #9", Keyboard.KEY_NONE, "NekoQOL Wardrobe"),
+            KeyBinding("Hold Left Click", Keyboard.KEY_NONE, "NekoQOL Stranded"),
         )
         var tickCount = 0
     }

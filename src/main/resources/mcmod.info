@@ -2,7 +2,7 @@
   {
     "modid": "nekoqol",
     "name": "NekoQOL",
-    "description": "Some hot nekos helping with Quality of Life! NYAAA~!",
+    "description": "A Hypixel Skyblock focused Quality of Mod with a neko theme",
     "version": "${version}",
     "mcversion": "${mcversion}",
     "url": "https://github.com/SemiMute/NekoQOL",

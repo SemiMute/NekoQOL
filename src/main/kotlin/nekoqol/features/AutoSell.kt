@@ -20,28 +20,31 @@ import kotlin.concurrent.timerTask
 class AutoSell {
     @SubscribeEvent
     fun onFullInventory(event: ClientChatReceivedEvent){
-        if(!inSkyblock) return;
         if(NekoQOL.nekoconfig.autoSellToggle){
             if(NekoQOL.nekoconfig.autoSellChoice == 0){
                 if (StringUtils.stripControlCodes(event.message.unformattedText).startsWith("Your inventory is full!")) {
                     modMessage("&cDEBUGGER: &7Detected full inventory!")
                     mc.thePlayer.sendChatMessage("/bz")
                     Timer().schedule(timerTask {
-                        click(38, false, 600)
+                        click(38, false, mc.currentServerData.pingToServer + 25)
                         chat("&cNEKOQOL DEBUGGER: &fClicked slot &b38&f in menu Bazaar")
+                        modMessage("&cDEBUGGER: &fPing == ${mc.currentServerData.pingToServer}")
                     }, 750)
                     Timer().schedule(timerTask {
-                        click(11, false, 600)
+                        click(11, false, mc.currentServerData.pingToServer + 25)
                         chat("&cNEKOQOL DEBUGGER: &fClicked slot &b11&f in menu BAZAAR CONFIRM")
+                        modMessage("&cDEBUGGER: &fPing == ${mc.currentServerData.pingToServer}")
                     }, 1500)
                     Timer().schedule(timerTask {
-                        click(11, false, 600)
+                        click(11, false, mc.currentServerData.pingToServer + 25)
                         chat("&cNEKOQOL DEBUGGER: &fClicked slot &b11&f in menu BAZAAR CONFIRM")
+                        modMessage("&cDEBUGGER: &fPing == ${mc.currentServerData.pingToServer}")
                     }, 2100)
                     Timer().schedule(timerTask {
-                        click(15, false, 600)
+                        click(15, false, mc.currentServerData.pingToServer + 25)
                         chat("&cNEKOQOL DEBUGGER: &fAttempting to close Bazaar Menu")
-                    }, 2800)
+                        modMessage("&cDEBUGGER: &fPing == ${mc.currentServerData.pingToServer}")
+                    }, mc.currentServerData.pingToServer + 25)
                 }
             }
             if(NekoQOL.nekoconfig.autoSellChoice == 1){
